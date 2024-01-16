@@ -9,5 +9,4 @@ class SsiaCh19Ex5ApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }
