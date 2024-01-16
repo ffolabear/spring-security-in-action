@@ -1,5 +1,6 @@
 package com.example.ssiach5ex1.config;
 
+import com.example.ssiach5ex1.security.CustomAuthenticationProvider;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,8 +17,10 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class ProjectConfig {
 
-    @Autowired
-    private AuthenticationProvider authenticationProvider;
+    @Bean
+    public CustomAuthenticationProvider customAuthenticationProvider() {
+        return new CustomAuthenticationProvider();
+    }
 
     @Bean
     public UserDetailsService userDetailsService(DataSource dataSource) {
@@ -31,9 +34,6 @@ public class ProjectConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(
-                AuthenticationManagerBuilder.class);
-        authenticationManagerBuilder.authenticationProvider(authenticationProvider);
         return http.build();
     }
 
